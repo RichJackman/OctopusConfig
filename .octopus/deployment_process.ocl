@@ -60,3 +60,17 @@ step "Hey a script" {
         worker_pool = "Default Worker Pool"
     }
 }
+
+step "Run a Script" {
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = "write-highlight \"hello\""
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool = "Default Worker Pool"
+    }
+}
