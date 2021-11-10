@@ -1,0 +1,20 @@
+step "Run a script on Octopus Server" {
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $SystemDrives = get-PSDrive -PSProvider 'FileSystem'
+                $MaxParallelism = $Octopus.Qcquire.MaxParallelism
+                
+                write-highlight $SystemDrives
+                write-highlight $MaxParallelism
+                
+            EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool = "Default Worker Pool"
+    }
+}
